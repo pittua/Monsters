@@ -1,0 +1,12 @@
+# Render Blueprint — Web サービス1つで 静的配信 + WebSocket(/ws) + /health を提供。
+# Render ダッシュボードの「New +」→「Blueprint」でこのリポジトリを選ぶと自動構成される。
+services:
+  - type: web
+    name: monsters
+    runtime: node
+    plan: free            # 無料枠（keep-alive なし・スリープ許容）
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true       # main への push で自動デプロイ
+    # PORT は Render が自動注入し、server.js が参照する
