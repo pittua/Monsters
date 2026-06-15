@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monsters — サイコロバトル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- JSZip（.monst の生成・解凍に使用）。グローバル window.JSZip を提供 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1 class="logo" id="logo">Monsters</h1>
+    </header>
+    <main id="screen"><!-- 画面はJSで描画 --></main>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

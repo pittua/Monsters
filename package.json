@@ -1,0 +1,20 @@
+{
+  "name": "monsters",
+  "version": "0.1.0",
+  "description": "バトルえんぴつ風の2人対戦サイコロバトル",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node tests/run.js",
+    "test:browser": "node tests/browser-smoke.mjs",
+    "test:online": "node tests/online.test.js",
+    "sim": "node tests/sim.js"
+  },
+  "devDependencies": {
+    "jszip": "^3.10.1",
+    "puppeteer": "^25.1.0"
+  },
+  "dependencies": {
+    "ws": "^8.21.0"
+  }
+}
