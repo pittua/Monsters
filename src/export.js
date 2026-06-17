@@ -89,6 +89,15 @@ export async function importMonster(file) {
         imageUrl = URL.createObjectURL(blob);
       }
     }
+    // 戦闘ロジックは「6面・finiteなmaxHp」を前提とする。壊れた/改変された .monst を
+    // 取り込むと（free モードはビルド時に検証しないため）対戦中にクラッシュし得るので、
+    // ここで構造を検証して弾く。
+    if (!Array.isArray(meta.actions) || meta.actions.length !== 6) {
+      throw new Error("不正な .monst ファイル（各フォームは6面の行動が必要です）");
+    }
+    if (typeof meta.maxHp !== "number" || !Number.isFinite(meta.maxHp) || meta.maxHp <= 0) {
+      throw new Error("不正な .monst ファイル（HPが不正です）");
+    }
     forms.push({
       name: meta.name || "",
       imageUrl,

@@ -182,6 +182,19 @@ async function main() {
   J.close(); K.close();
   await srv3.close();
 
+  // ---- 8. 壊れたモンスター（free でも）は拒否され、サーバーは生存し続ける ----
+  const freeCfg = defaultRuleConfig("free");
+  const L = new Client(url); await L.ready;
+  // 行動面が空（6面でない）→ 受理すると roll 時に applyAction がクラッシュし得る
+  L.send({ type: "create", ruleConfig: freeCfg, monster: { forms: [{ name: "壊", imageUrl: "", maxHp: 50, actions: [] }] } });
+  const badErr = await L.waitFor("error");
+  ok(/規定|不正/.test(badErr.message), "malformed free-mode monster is rejected (no server crash)");
+  // サーバーがまだ応答する（=クラッシュしていない）ことを確認
+  L.send({ type: "create", ruleConfig: freeCfg, monster: fastMonster("健全") });
+  const okCreated = await L.waitFor("created");
+  ok(/^[A-Z2-9]{4}$/.test(okCreated.code), "server still serves valid requests after malformed input");
+  L.close();
+
   await sleep(50);
   await srv.close();
   report("online (server protocol)");

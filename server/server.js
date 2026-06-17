@@ -82,12 +82,12 @@ function createState(cfg) {
       send(ws, { type: "error", message: "モンスターが不正です" });
       return false;
     }
-    if (ruleConfig.mode === "balance") {
-      const v = validateMonster(monster, ruleConfig);
-      if (!v.ok) {
-        send(ws, { type: "error", message: "モンスターが規定を満たしません: " + (v.errors[0] || "予算超過") });
-        return false;
-      }
+    // 構造検証は両モード共通で必ず実行する（free でも 6面/HP の不正は拒否）。
+    // 権威サーバーが createGame/applyAction を実行するため、壊れた構成は受け付けない（クラッシュ防止）。
+    const v = validateMonster(monster, ruleConfig);
+    if (!v.ok) {
+      send(ws, { type: "error", message: "モンスターが規定を満たしません: " + (v.errors[0] || "不正な構成です") });
+      return false;
     }
     return true;
   }
@@ -266,7 +266,11 @@ export function startServer(opts = {}) {
   });
   const wss = new WebSocketServer({ server, path: "/ws" });
   wss.on("connection", (ws) => {
-    ws.on("message", (data) => state.handleMessage(ws, data.toString()));
+    // 1通の不正メッセージでもプロセスを落とさない（防御的）。
+    ws.on("message", (data) => {
+      try { state.handleMessage(ws, data.toString()); }
+      catch { try { ws.send(JSON.stringify({ type: "error", message: "不正なメッセージです" })); } catch {} }
+    });
     ws.on("close", () => state.handleClose(ws));
     ws.on("error", () => {});
   });

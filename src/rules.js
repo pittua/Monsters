@@ -93,6 +93,10 @@ export function validateMonster(monster, cfg) {
     if (!form.actions || form.actions.length !== 6) {
       errors.push(`フォーム${fi + 1}: 行動は6面必要です`);
     }
+    // HPは両モード共通の構造要件（戦闘ロジックが finite な maxHp を前提とする）
+    if (typeof form.maxHp !== "number" || !Number.isFinite(form.maxHp) || form.maxHp <= 0) {
+      errors.push(`フォーム${fi + 1}: HPが不正です`);
+    }
     (form.actions || []).forEach((action, ai) => {
       if (action.type === "transform") {
         const t = action.targetForm;
