@@ -406,6 +406,23 @@ label { color: var(--muted); font-size: .82rem; font-weight: 500; }
   .arena { grid-template-columns: 1fr 84px 1fr; gap: 8px; padding: 14px 8px; }
   .fighter img { width: 108px; height: 108px; }
   .movelists { grid-template-columns: 1fr; }
+
+  /* 作成画面の6面入力を2段組みにして横スクロールを解消する。
+     行内の子要素は順に: 1=番号 2=タイプ選択 3=行動名 4=power/変身先/記述 5=コスト
+       [番号] [タイプ ] [コスト]
+       [番号] [行動名 ] [power ] */
+  .face-row, .face-row.freetext {
+    grid-template-columns: 30px minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: 6px; column-gap: 8px;
+  }
+  .face-row > * { min-width: 0; }                                  /* グリッドはみ出し防止 */
+  .face-row > :nth-child(1) { grid-area: 1 / 1 / 3 / 2; align-self: center; } /* 番号: 2行ぶち抜き */
+  .face-row > :nth-child(2) { grid-area: 1 / 2 / 2 / 3; }          /* タイプ */
+  .face-row > :nth-child(5) { grid-area: 1 / 3 / 2 / 4; justify-self: end; white-space: nowrap; } /* コスト */
+  .face-row > :nth-child(3) { grid-area: 2 / 2 / 3 / 3; }          /* 行動名 */
+  .face-row > :nth-child(4) { grid-area: 2 / 3 / 3 / 4; }          /* power/変身先/記述 */
+  .face-row input[type=number] { width: 100%; }                   /* 固定84pxをセル幅に追従 */
 }
 
 @media (prefers-reduced-motion: reduce) {
