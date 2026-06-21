@@ -1,6 +1,27 @@
-# Monsters
+<p align="center">
+  <a href="https://pittua.github.io/Monsters/"><img src="docs/banner.svg" alt="Monsters" width="100%"></a>
+</p>
 
-バトルえんぴつ風の、2人で遊ぶサイコロバトル。自分だけのモンスターを作り、サイコロの出目で殴り合う。ブラウザだけで動作し、オンライン対戦にも対応。
+<p align="center">
+  バトルえんぴつ風の、2人で遊ぶサイコロバトル。<br>
+  自分だけのモンスターを作り、サイコロの出目で殴り合う。ブラウザだけで動作し、オンライン対戦にも対応。
+</p>
+
+<p align="center">
+  <a href="https://pittua.github.io/Monsters/"><b>▶ いますぐ遊ぶ — pittua.github.io/Monsters</b></a><br>
+  <sub>インストール不要・登録不要・無料 — PC でもスマホでもブラウザで開くだけ</sub>
+</p>
+
+## 📸 スクリーンショット
+
+| 🧬 モンスターを作る | ⚔️ バトル |
+|:---:|:---:|
+| ![モンスター作成](docs/screenshots/build.png) | ![バトル画面](docs/screenshots/battle.png) |
+| 6面それぞれに効果を割り当て、予算内で自作 | サイコロの出目で殴り合う |
+| 🎲 **先攻をダイスで決定** | 🏆 **勝敗** |
+| ![先攻決定](docs/screenshots/dice.png) | ![結果](docs/screenshots/result.png) |
+
+「こうげき・とくしゅ・ガード・かいふく」などの効果を6面に割り当て、予算内で自分だけのモンスターを組む。あとはサイコロを振って出た面の効果で殴り合うだけ。
 
 ## ▶ いますぐ遊ぶ
 
